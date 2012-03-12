@@ -1,0 +1,3 @@
+gcc -c gtk.c `pkg-config --cflags gtk+-2.0` `pkg-config --cflags libglade-2.0`
+gcc -o gtk gtk.o `pkg-config --libs gtk+-2.0` `pkg-config --libs libglade-2.0`
+

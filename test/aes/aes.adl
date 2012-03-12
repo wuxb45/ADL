@@ -1,0 +1,307 @@
+@SubBytes.adl
+@ShiftRows.adl
+@MixColumns.adl
+@Keys.adl
+
+module Lock (2) {
+	input [W01] done; 
+
+	input [u08][4][4] i;
+	output [u08][4][4] o;
+	ram [W01] last_done;
+	
+%%
+
+	if($(last_done).value == 0 && $done.value != 0){
+		op_assign_U08(&$o[0][0], &$i[0][0]);
+		op_assign_U08(&$o[0][1], &$i[0][1]);
+		op_assign_U08(&$o[0][2], &$i[0][2]);
+		op_assign_U08(&$o[0][3], &$i[0][3]);
+		
+		op_assign_U08(&$o[1][0], &$i[1][0]);
+		op_assign_U08(&$o[1][1], &$i[1][1]);
+		op_assign_U08(&$o[1][2], &$i[1][2]);
+		op_assign_U08(&$o[1][3], &$i[1][3]);
+		
+		op_assign_U08(&$o[2][0], &$i[2][0]);
+		op_assign_U08(&$o[2][1], &$i[2][1]);
+		op_assign_U08(&$o[2][2], &$i[2][2]);
+		op_assign_U08(&$o[2][3], &$i[2][3]);
+		
+		op_assign_U08(&$o[3][0], &$i[3][0]);
+		op_assign_U08(&$o[3][1], &$i[3][1]);
+		op_assign_U08(&$o[3][2], &$i[3][2]);
+		op_assign_U08(&$o[3][3], &$i[3][3]);
+		
+	}
+
+	op_assign_W01(&$last_done, &$done);
+%%
+}
+
+module Mux (0){
+	input [W01] select;
+
+	input [u08][4][4] ia;
+	input [u08][4][4] ib;
+	output [u08][4][4] o;
+
+%%
+	if($select.value){
+		op_assign_U08(&($o[0][0]), &($ia[0][0]));
+		op_assign_U08(&($o[0][1]), &($ia[0][1]));
+		op_assign_U08(&($o[0][2]), &($ia[0][2]));
+		op_assign_U08(&($o[0][3]), &($ia[0][3]));
+		op_assign_U08(&($o[1][0]), &($ia[1][0]));
+		op_assign_U08(&($o[1][1]), &($ia[1][1]));
+		op_assign_U08(&($o[1][2]), &($ia[1][2]));
+		op_assign_U08(&($o[1][3]), &($ia[1][3]));
+		op_assign_U08(&($o[2][0]), &($ia[2][0]));
+		op_assign_U08(&($o[2][1]), &($ia[2][1]));
+		op_assign_U08(&($o[2][2]), &($ia[2][2]));
+		op_assign_U08(&($o[2][3]), &($ia[2][3]));
+		op_assign_U08(&($o[3][0]), &($ia[3][0]));
+		op_assign_U08(&($o[3][1]), &($ia[3][1]));
+		op_assign_U08(&($o[3][2]), &($ia[3][2]));
+		op_assign_U08(&($o[3][3]), &($ia[3][3]));
+	} else {
+		op_assign_U08(&($o[0][0]), &($ib[0][0]));
+		op_assign_U08(&($o[0][1]), &($ib[0][1]));
+		op_assign_U08(&($o[0][2]), &($ib[0][2]));
+		op_assign_U08(&($o[0][3]), &($ib[0][3]));
+		op_assign_U08(&($o[1][0]), &($ib[1][0]));
+		op_assign_U08(&($o[1][1]), &($ib[1][1]));
+		op_assign_U08(&($o[1][2]), &($ib[1][2]));
+		op_assign_U08(&($o[1][3]), &($ib[1][3]));
+		op_assign_U08(&($o[2][0]), &($ib[2][0]));
+		op_assign_U08(&($o[2][1]), &($ib[2][1]));
+		op_assign_U08(&($o[2][2]), &($ib[2][2]));
+		op_assign_U08(&($o[2][3]), &($ib[2][3]));
+		op_assign_U08(&($o[3][0]), &($ib[3][0]));
+		op_assign_U08(&($o[3][1]), &($ib[3][1]));
+		op_assign_U08(&($o[3][2]), &($ib[3][2]));
+		op_assign_U08(&($o[3][3]), &($ib[3][3]));
+	}
+%%
+}
+
+module Xor(1){
+	input [u08][4][4] ia;
+	input [u08][4][4] ib;
+
+	output [u08][4][4] o;
+	
+%%
+	op_xor_U08(&($o[0][0]), &($ia[0][0]), &($ib[0][0]));
+	op_xor_U08(&($o[0][1]), &($ia[0][1]), &($ib[0][1]));
+	op_xor_U08(&($o[0][2]), &($ia[0][2]), &($ib[0][2]));
+	op_xor_U08(&($o[0][3]), &($ia[0][3]), &($ib[0][3]));
+	
+	op_xor_U08(&($o[1][0]), &($ia[1][0]), &($ib[1][0]));
+	op_xor_U08(&($o[1][1]), &($ia[1][1]), &($ib[1][1]));
+	op_xor_U08(&($o[1][2]), &($ia[1][2]), &($ib[1][2]));
+	op_xor_U08(&($o[1][3]), &($ia[1][3]), &($ib[1][3]));
+	
+	op_xor_U08(&($o[2][0]), &($ia[2][0]), &($ib[2][0]));
+	op_xor_U08(&($o[2][1]), &($ia[2][1]), &($ib[2][1]));
+	op_xor_U08(&($o[2][2]), &($ia[2][2]), &($ib[2][2]));
+	op_xor_U08(&($o[2][3]), &($ia[2][3]), &($ib[2][3]));
+	
+	op_xor_U08(&($o[3][0]), &($ia[3][0]), &($ib[3][0]));
+	op_xor_U08(&($o[3][1]), &($ia[3][1]), &($ib[3][1]));
+	op_xor_U08(&($o[3][2]), &($ia[3][2]), &($ib[3][2]));
+	op_xor_U08(&($o[3][3]), &($ia[3][3]), &($ib[3][3]));
+	
+	%%
+}
+
+module FIFO_W01 (1){
+	input [W01] i;
+	output [W01] o;
+%%
+	op_assign_W01(&($o), &($i));
+%%
+}
+
+
+module Control (1){
+	input [W01] start;
+
+	output [U08] round;
+	output [W01] selecti;
+	output [W01] selectx;
+	output [W01] selectm;
+	output [W01] done;
+
+	ram [U08] _round;
+%%
+	if($start.value){
+		$_round.value = 0;
+		$done.value = 0;
+	}
+	
+	if($_round.value ){
+		$selecti.value = 0;
+		$selectx.value = -1;
+	}else{
+		$selecti.value = -1;
+		$selectx.value = 0;
+	}
+
+	if($_round.value == 10){
+		$selectm.value = -1;
+	}else{
+		$selectm.value = 0;
+	}
+
+	op_assign_U08(&$round, &$_round);
+	if($_round.value == 11){
+		$done.value = -1;
+	}
+
+	($_round.value)++;
+%%
+}
+
+module AES {
+
+	input [W01] start;
+	input [U08][4][4] i;
+	input [U08][4][4] k;
+	
+	output [W01] done;
+	output [U08][4][4] o;
+
+	contain FIFO_W01 to_mi;
+	contain FIFO_W01 to_mx;
+	contain FIFO_W01 to_mm;
+	contain FIFO_W01 to_done;
+	contain FIFO_W01 to_done2;
+
+	contain Mux mi;
+	contain Mux mx;
+	contain Mux mm;
+
+	contain SubBytes sb;
+	contain ShiftRows sr;
+	contain MixColumns mc;
+	contain Xor xor;
+	contain Keys key;
+	contain Control control;
+	contain Lock lock;
+
+	net mi.ia , i;
+	net mi.ib , xor.o, lock.i;
+
+	net sb.i , mi.o;
+	net sr.i , sb.o;
+	net mc.i , sr.o;
+	net mx.ia , mm.o;
+	net mx.ib , mi.o;
+	net xor.ia , mx.o;
+	net key.i , k;
+	net xor.ib , key.o;
+	net o, lock.o;
+	net mm.ia , sr.o;
+	net mm.ib , mc.o;
+
+	net control.start , start;
+	net key.round , control.round;
+
+	net mi.select , to_mi.o;
+	net to_mi.i , control.selecti;
+
+	net mx.select , to_mx.o;
+	net to_mx.i , control.selectx;
+
+	net mm.select , to_mm.o;
+	net to_mm.i , control.selectm;
+	
+	net done , to_done2.o;
+	net to_done2.i , to_done.o;
+	net lock.done , to_done.o;
+	net to_done.i , control.done;
+
+}
+
+module AES_test (1) {
+
+	input [U08][4][4] i;
+	input [W01] done;
+	input [W01][5] xxxx;
+	output [W01][5] oooo;
+
+
+	#output [U08][4][4] k;
+	output [W01] start;
+	#output [U08][4][4] o;
+%%
+	static int start = 0;
+
+	if($done.value){
+	
+	printf("DONE!\n");
+	printf("%02x %02x %02x %02x\n", $i[0][0].value,$i[1][0].value,$i[2][0].value,$i[3][0].value);
+	printf("%02x %02x %02x %02x\n", $i[0][1].value,$i[1][1].value,$i[2][1].value,$i[3][1].value);
+	printf("%02x %02x %02x %02x\n", $i[0][2].value,$i[1][2].value,$i[2][2].value,$i[3][2].value);
+	printf("%02x %02x %02x %02x\n", $i[0][3].value,$i[1][3].value,$i[2][3].value,$i[3][3].value);
+	}
+	if(start ==0){
+		$start.value = -1;
+		start = 1;
+	}else{
+		$start.value = 0;
+	}
+%%
+
+}
+
+module top {
+	contain AES aes;
+	contain AES_test tester;
+	net tester.xxxx, tester.oooo;
+
+	net tester.i , aes.o;
+	net aes.i[0][0], 0x32;
+	net aes.i[0][1], 0x43;
+	net aes.i[0][2], 0xf6;
+	net aes.i[0][3], 0xa8;
+
+	net aes.i[1][0], 0x88;
+	net aes.i[1][1], 0x5a;
+	net aes.i[1][2], 0x30;
+	net aes.i[1][3], 0x8d;
+
+	net aes.i[2][0], 0x31;
+	net aes.i[2][1], 0x31;
+	net aes.i[2][2], 0x98;
+	net aes.i[2][3], 0xa2;
+
+	net aes.i[3][0], 0xe0;
+	net aes.i[3][1], 0x37;
+	net aes.i[3][2], 0x07;
+	net aes.i[3][3], 0x34;
+
+	net aes.k[0][0], 0x2b;
+	net aes.k[0][1], 0x7e;
+	net aes.k[0][2], 0x15;
+	net aes.k[0][3], 0x16;
+
+	net aes.k[1][0], 0x28;
+	net aes.k[1][1], 0xae;
+	net aes.k[1][2], 0xd2;
+	net aes.k[1][3], 0xa6;
+
+	net aes.k[2][0], 0xab;
+	net aes.k[2][1], 0xf7;
+	net aes.k[2][2], 0x15;
+	net aes.k[2][3], 0x88;
+
+	net aes.k[3][0], 0x09;
+	net aes.k[3][1], 0xcf;
+	net aes.k[3][2], 0x4f;
+	net aes.k[3][3], 0x3c;
+
+	net aes.start , tester.start;
+	net tester.done, aes.done;
+}

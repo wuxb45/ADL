@@ -1,0 +1,301 @@
+
+
+#include "type.h"
+#include "operator.h"
+
+/**
+ * pass 'x' or 'z'
+ */
+void
+op_check_x_1(void * result, void * a)
+{
+	*((int *)result) = *((int *)a);
+}
+
+void
+op_check_x_2(void * result, void * a, void * b)
+{
+	*((int *)result) = ( (*((int *)a)) | (*((int *)b)) );
+}
+
+
+/**
+ * ADD operation.
+ */
+void
+op_add_u32(SIM_U32 * result, SIM_U32 * a, SIM_U32 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) + (b->value);
+}
+
+void
+op_add_u16(SIM_U16 * result, SIM_U16 * a, SIM_U16 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) + (b->value);
+}
+
+void
+op_add_u8(SIM_U8 * result, SIM_U8 * a, SIM_U8 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) + (b->value);
+}
+
+void
+op_add_i32(SIM_I32 * result, SIM_I32 * a, SIM_I32 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) + (b->value);
+}
+
+void
+op_add_i16(SIM_I16 * result, SIM_I16 * a, SIM_I16 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) + (b->value);
+}
+
+void
+op_add_i8(SIM_I8 * result, SIM_I8 * a, SIM_I8 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) + (b->value);
+}
+
+void
+op_add_f32(SIM_F32 * result, SIM_F32 * a, SIM_F32 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) + (b->value);
+}
+
+void
+op_add_f64(SIM_F64 * result, SIM_F64 * a, SIM_F64 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) + (b->value);
+}
+
+/**
+ * SUB operation.
+ */
+void
+op_sub_u32(SIM_U32 * result, SIM_U32 * a, SIM_U32 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) - (b->value);
+}
+
+void
+op_sub_u16(SIM_U16 * result, SIM_U16 * a, SIM_U16 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) - (b->value);
+}
+
+void
+op_sub_u8(SIM_U8 * result, SIM_U8 * a, SIM_U8 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) - (b->value);
+}
+
+void
+op_sub_i32(SIM_I32 * result, SIM_I32 * a, SIM_I32 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) - (b->value);
+}
+
+void
+op_sub_i16(SIM_I16 * result, SIM_I16 * a, SIM_I16 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) - (b->value);
+}
+
+void
+op_sub_i8(SIM_I8 * result, SIM_I8 * a, SIM_I8 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) - (b->value);
+}
+
+void
+op_sub_f32(SIM_F32 * result, SIM_F32 * a, SIM_F32 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) - (b->value);
+}
+
+void
+op_sub_f64(SIM_F64 * result, SIM_F64 * a, SIM_F64 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) - (b->value);
+}
+
+/**
+ * MUL operation.
+ */
+void
+op_mul_u32(SIM_U32 * result, SIM_U32 * a, SIM_U32 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) * (b->value);
+}
+
+void
+op_mul_u16(SIM_U16 * result, SIM_U16 * a, SIM_U16 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) * (b->value);
+}
+
+void
+op_mul_u8(SIM_U8 * result, SIM_U8 * a, SIM_U8 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) * (b->value);
+}
+
+void
+op_mul_i32(SIM_I32 * result, SIM_I32 * a, SIM_I32 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) * (b->value);
+}
+
+void
+op_mul_i16(SIM_I16 * result, SIM_I16 * a, SIM_I16 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) * (b->value);
+}
+
+void
+op_mul_i8(SIM_I8 * result, SIM_I8 * a, SIM_I8 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) * (b->value);
+}
+
+void
+op_mul_f32(SIM_F32 * result, SIM_F32 * a, SIM_F32 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) * (b->value);
+}
+
+void
+op_mul_f64(SIM_F64 * result, SIM_F64 * a, SIM_F64 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) * (b->value);
+}
+
+/**
+ * DIV operation.
+ */
+void
+op_div_u32(SIM_U32 * result, SIM_U32 * a, SIM_U32 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) / (b->value);
+}
+
+void
+op_div_u16(SIM_U16 * result, SIM_U16 * a, SIM_U16 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) / (b->value);
+}
+
+void
+op_div_u8(SIM_U8 * result, SIM_U8 * a, SIM_U8 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) / (b->value);
+}
+
+void
+op_div_i32(SIM_I32 * result, SIM_I32 * a, SIM_I32 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) / (b->value);
+}
+
+void
+op_div_i16(SIM_I16 * result, SIM_I16 * a, SIM_I16 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) / (b->value);
+}
+
+void
+op_div_i8(SIM_I8 * result, SIM_I8 * a, SIM_I8 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) / (b->value);
+}
+
+void
+op_div_f32(SIM_F32 * result, SIM_F32 * a, SIM_F32 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) / (b->value);
+}
+
+void
+op_div_f64(SIM_F64 * result, SIM_F64 * a, SIM_F64 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) / (b->value);
+}
+
+/**
+ * MOD operation.
+ */
+void
+op_mod_u32(SIM_U32 * result, SIM_U32 * a, SIM_U32 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) % (b->value);
+}
+
+void
+op_mod_u16(SIM_U16 * result, SIM_U16 * a, SIM_U16 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) % (b->value);
+}
+
+void
+op_mod_u8(SIM_U8 * result, SIM_U8 * a, SIM_U8 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) % (b->value);
+}
+
+void
+op_mod_i32(SIM_I32 * result, SIM_I32 * a, SIM_I32 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) % (b->value);
+}
+
+void
+op_mod_i16(SIM_I16 * result, SIM_I16 * a, SIM_I16 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) % (b->value);
+}
+
+void
+op_mod_i8(SIM_I8 * result, SIM_I8 * a, SIM_I8 * b)
+{
+	result->option = ((a->option) | (b->option)) ? 1 : 0;
+	result->value = (a->value) % (b->value);
+}

@@ -1,0 +1,42 @@
+Copyright 2009 Wu Xingbo <wuxb45@gmail.com>
+
+----
+Abs.
+
+ADL is a language and a tool for simulating cycle-based synchronized digital system.
+
+This is my legacy master piece for my bechelor thesis, May 2009.
+Then I still did some improvement utill Dec 2009.
+
+----
+Intro
+
+with ADL you can:
+* describe a digital system with a synchronized clock.
+* logic-component/cyclic-component. (like verilog's combinational logic/timing logic)
+* using C-language to write the behavior in components.
+* using declarative language (ADL, like a HDL) to describe the system connection topology.
+* compile it to pure C then to a real simulator.
+    So you get a pure compiled simulator with a promissable speed.
+* a GTK-based GUI debugging interface. It's very convenient to use.
+* generates dot file of a system-topology for Graphviz. you can see a picture of system.
+* generates verilog code for all connections between components. 
+    (You still have write verilog code inside the component.)
+* generates wave file for gtkwave. (with only one click-on-the-button).
+
+----
+Getting Start
+See .adl files in test folder. them try to compile and run it.
+(you really need to try how to use the adl-compiler).
+If you can compile it, you should keep some internal files (with some compiler options), and see what happened.
+See the code transformation and the source code. there will be enough info. to learn how it work.
+
+Last method: mailto:wuxb45@gmail.com
+
+----
+Sorry for being RAW
+
+Sorry for not have too much english docs. I did't had time to maintain that.
+
+TODO: I haven't compiled the tool for almost 2 years.
+      I should make sure that it can still work.

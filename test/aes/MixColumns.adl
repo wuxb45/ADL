@@ -1,0 +1,103 @@
+
+
+module MixColumns {
+
+	input [U08][4][4] i;
+
+	output [U08][4][4] o;
+	
+	contain MixColumn m0, m1, m2, m3;
+	
+	net m0.i , i[0];
+	net m1.i , i[1];
+	net m2.i , i[2];
+	net m3.i , i[3];
+
+	net o[0] , m0.o;
+	net o[1] , m1.o;
+	net o[2] , m2.o;
+	net o[3] , m3.o;
+}
+	
+module MixColumn (0){
+
+	input [U08][4] i;
+
+	output [U08][4] o;
+	
+%%
+	unsigned char c,h;
+	unsigned char a[4];
+	unsigned char b[4];
+	unsigned char r[4];
+
+	r[0] = $i[0].value;
+	r[1] = $i[1].value;
+	r[2] = $i[2].value;
+	r[3] = $i[3].value;
+
+	for(c=0; c<4; c++) {
+		a[c] = r[c];
+		h = r[c] & 0x80; /* hi bit */
+		b[c] = r[c] << 1;
+		if(h == 0x80) 
+			b[c] ^= 0x1b; /* Rijndael's Galois field */
+	}
+
+	r[0] = b[0] ^ a[3] ^ a[2] ^ b[1] ^ a[1];
+	r[1] = b[1] ^ a[0] ^ a[3] ^ b[2] ^ a[2];
+	r[2] = b[2] ^ a[1] ^ a[0] ^ b[3] ^ a[3];
+	r[3] = b[3] ^ a[2] ^ a[1] ^ b[0] ^ a[0];
+	$o[0].value = r[0];
+	$o[1].value = r[1];
+	$o[2].value = r[2];
+	$o[3].value = r[3];
+
+%%
+}
+
+module MixColumns_test (1) {
+
+	input [U08][4][4] i;
+
+	output [U08][4][4] o;
+	
+%%
+	printf("get:\n");
+	printf("%02x %02x %02x %02x\n", $i[0][0].value,$i[1][0].value,$i[2][0].value,$i[3][0].value);
+	printf("%02x %02x %02x %02x\n", $i[0][1].value,$i[1][1].value,$i[2][1].value,$i[3][1].value);
+	printf("%02x %02x %02x %02x\n", $i[0][2].value,$i[1][2].value,$i[2][2].value,$i[3][2].value);
+	printf("%02x %02x %02x %02x\n", $i[0][3].value,$i[1][3].value,$i[2][3].value,$i[3][3].value);
+	printf("set:\n");
+	$o[0][0].value = 0xd4;
+	$o[0][1].value = 0xbf;
+	$o[0][2].value = 0x5d;
+	$o[0][3].value = 0x30;
+
+	$o[1][0].value = 0xe0;
+	$o[1][1].value = 0xb4;
+	$o[1][2].value = 0x52;
+	$o[1][3].value = 0xae;
+
+	$o[2][0].value = 0xb8;
+	$o[2][1].value = 0x41;
+	$o[2][2].value = 0x11;
+	$o[2][3].value = 0xf1;
+
+	$o[3][0].value = 0x1e;
+	$o[3][1].value = 0x27;
+	$o[3][2].value = 0x98;
+	$o[3][3].value = 0xe5;
+%%
+}
+
+module Mix_top {
+	contain MixColumns m;
+	contain MixColumns_test t;
+
+	net m.i , t.o;
+	
+
+	net t.i , m.o;
+		
+}

@@ -1,0 +1,29 @@
+module add_u32(0){
+	input[u32] in1;
+	input[u32] in2;
+	output[u32] out;
+	%%
+		op_add_u32(&$out, &$in1, &$in2);
+	%%
+}
+
+
+module add_u16(0){
+	input[u16] in1;
+	input[u16] in2;
+	output[u16] out;
+	%%
+		op_add_u16(&$out, &$in1, &$in2);
+	%%
+}
+
+module add_u8(0){
+	input[u8] in1;
+	input[u8] in2;
+	output[u8] out;
+	%%
+		op_add_u8(&$out, &$in1, &$in2);
+	%%
+}
+
+

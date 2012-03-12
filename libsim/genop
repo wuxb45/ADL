@@ -1,0 +1,3 @@
+#!/bin/sh
+
+	sed -n -e '/^op/s/^.*$/void &;/p' $1.c > $1.h

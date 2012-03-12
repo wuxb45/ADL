@@ -1,0 +1,46 @@
+/**
+ * In these data types, option and value make the value of the variable.
+ * option == 0, value has its binary value.
+ * option == 1 means 'z'.
+ * option == 2 means 'x'.
+ */
+typedef struct __sim_type_u32 {
+	int option;
+	unsigned int value;
+} SIM_TYPE_U32;
+
+typedef struct __sim_type_u16 {
+	int option;
+	unsigned short value;
+} SIM_TYPE__U16;
+
+typedef struct __sim_type_u8 {
+	int option;
+	unsigned char value;
+} SIM_TYPE__U8;
+
+typedef struct __sim_type_i32 {
+	int option;
+	int value;
+} SIM_TYPE__I32;
+
+typedef struct __sim_type_i16 {
+	int option;
+	short value;
+} SIM_TYPE__I16;
+
+typedef struct __sim_type_i8 {
+	int option;
+	char value;
+} SIM_TYPE__I8;
+
+typedef struct __sim_type_f32 {
+	int option;
+	float value;
+} SIM_TYPE__F32;
+
+typedef struct __sim_type_f64 {
+	int option;
+	double value;
+} SIM_TYPE__F64;
+

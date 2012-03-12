@@ -1,0 +1,58 @@
+module add_u32(0){
+	input[u32] in1;
+	input[u32] in2;
+	output[u32] out;
+	%%
+		op_add_u32(&$out, &$in1, &$in2);
+	%%
+}
+
+
+module add_u16(0){
+	input[u16] in1;
+	input[u16] in2;
+	output[u16] out;
+	%%
+		op_add_u16(&$out, &$in1, &$in2);
+	%%
+}
+
+module add_u08(0){
+	input[u8] in1;
+	input[u8] in2;
+	output[u8] out;
+	%%
+		op_add_u8(&$out, &$in1, &$in2);
+	%%
+}
+
+module add_w01(0){
+	input[W01] a;
+	input[W01] b;
+	output[W01] o;
+	output[W01] c;
+	// a   b   o   c
+	// 0   0   0   0
+	// 0   1   1   0
+	// 1   0   1   0
+	// 1   1   1   1
+%%
+	unsigned int xa, xb, va, vb;
+
+	xa = $a->option;
+	xb = $b->option;
+	
+	if(xa | xb){
+		$o->option = SIM_OPTION_X;
+		$c->option = SIM_OPTION_X;
+	} else {
+		$o->option = SIM_OPTION_VALID;
+		$c->option = SIM_OPTION_VALID;
+		va = $a->value;
+		vb = $b->value;
+		o->value = va|vb;
+		c->value = va&vb;
+	}
+%%
+}
+ 

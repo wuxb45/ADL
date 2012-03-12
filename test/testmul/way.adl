@@ -1,0 +1,160 @@
+module way_select_8_U08(0){
+	input [u08] i;
+	output [W01] o;
+%%
+	op_check_x_1($o, $i);
+	$o->value = ($i->value &0x80) ? 0xffffffff : 0x0;
+%%
+}
+
+module way_select_7_U08(0){
+	input [u08] i;
+	output [W01] o;
+%%
+	op_check_x_1($o, $i);
+	$o->value = ($i->value &0x40) ? 0xffffffff : 0x0;
+%%
+}
+
+module way_select_6_U08(0){
+	input [u08] i;
+	output [W01] o;
+%%
+	op_check_x_1($o, $i);
+	$o->value = ($i->value &0x20) ? 0xffffffff : 0x0;
+%%
+}
+
+module way_select_5_U08(0){
+	input [u08] i;
+	output [W01] o;
+%%
+	op_check_x_1($o, $i);
+	$o->value = ($i->value &0x10) ? 0xffffffff : 0x0;
+%%
+}
+
+module way_select_4_U08(0){
+	input [u08] i;
+	output [W01] o;
+%%
+	op_check_x_1($o, $i);
+	$o->value = ($i->value &0x8) ? 0xffffffff : 0x0;
+%%
+}
+
+module way_select_3_U08(0){
+	input [u08] i;
+	output [W01] o;
+%%
+	op_check_x_1($o, $i);
+	$o->value = ($i->value &0x4) ? 0xffffffff : 0x0;
+%%
+}
+
+module way_select_2_U08(0){
+	input [u08] i;
+	output [W01] o;
+%%
+	op_check_x_1($o, $i);
+	$o->value = ($i->value &0x2) ? 0xffffffff : 0x0;
+%%
+}
+
+module way_select_1_U08(0){
+	input [u08] i;
+	output [W01] o;
+%%
+	op_check_x_1($o, $i);
+	$o->value = ($i->value &0x1) ? 0xffffffff : 0x0;
+%%
+}
+
+module way_join_u08(0){
+	input [W01] w1;
+	input [W01] w2;
+	input [W01] w3;
+	input [W01] w4;
+	input [W01] w5;
+	input [W01] w6;
+	input [W01] w7;
+	input [W01] w8;
+
+	output [u08] out;
+%%
+	if($w1->option | $w2->option | 
+			$w3->option | $w4->option | 
+			$w5->option | $w6->option | 
+			$w7->option | $w8->option){
+		$out->option = SIM_OPTION_X;
+	} else {
+		$out->option = 0;
+		$out->value = ($w1->value & 0x1) | ($w2->value  & 0x2) | 
+				($w3->value  & 0x4) | ($w4->value  & 0x8) |
+				($w5->value & 0x10) | ($w6->value & 0x20) |
+				($w7->value & 0x40) | ($w8->value & 0x80);
+	}
+%%
+}
+
+// input: {1'b, 8'b}
+// output: {8'b, 1'b}
+module shift(0){
+	input [u08] in;
+	input [W01] high;
+	output [u08] out;
+	output [W01] low;
+
+%%
+	unsigned char v;
+	op_check_x_2($out, $in, $high);
+	op_check_x_2($low, $in, $high);
+	v= $in->value >>1;
+	if($high->value){
+		v |= 0x80;
+	}
+	$out->value = v;
+	$low->value = ($in->value &1) ? -1 : 0;
+%%
+}
+
+module value_or_zero(0){
+	input [U08] in;
+	input [W01] set;
+	output [U08] out;
+%%
+	op_check_x_2($out, $in, $set);
+	if($set->value){
+		$out->value = $in->value;
+	}else{
+		$out->value = 0;
+	}
+%%
+}
+
+module low(0){
+	output [W01] o;
+%%
+	$o->option = 0;
+	$o->value = 0;
+%%
+}
+
+module high(0){
+	output [W01] o;
+%%
+	$o->option = 0;
+	$o->value = 0xffffffff;
+%%
+}
+
+module way_join_8_to_16(0){
+	input [U08] low;
+	input [U08] high;
+	output [U16] out;
+%%
+	op_check_x_2($out, $low, $high);
+	$out->value = ((unsigned int) ($high->value) <<8) | $low->value;
+%%
+}
+

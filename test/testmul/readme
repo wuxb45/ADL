@@ -1,0 +1,25 @@
+1:
+  install adlforsim 0.2 first.
+  make sure this files:
+  executive file:
+	/usr/local/bin/adlforsim
+  header files:
+    /usr/local/include/libsim/bus.h
+    /usr/local/include/libsim/operator.h
+    /usr/local/include/libsim/sim.h
+    /usr/local/include/libsim/simtype.h
+  lib file:
+	/usr/local/lib/libsim.a
+
+2:
+compile mul.dl:
+$ adlforsim -t top mul.dl
+
+3:
+compile simulator:
+$ gcc -o mul mul.dl.sim.c -lsim
+
+4:
+run! the simulator:
+$ ./mul
+

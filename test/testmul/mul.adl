@@ -1,0 +1,176 @@
+#way.adl
+
+%%
+#include <stdio.h>
+%%
+
+// add with carriage
+// o = a + b;
+module add_c08 (0){
+	input [U08] a;
+	input [U08] b;
+	output [U08] o;
+	output [W01] c;
+	ram [U08][3] abc;
+%%
+	op_addc_U08($o, $c, $a, $b);
+%%
+}
+
+module top{
+	contain dummymul mul;
+	contain engine e;
+	link mul.a = e.a;
+	link mul.b = e.b;
+	link e.result = mul.out;
+}
+	
+module engine{
+	input [u16] result;
+	output [u08] a;
+	output [u08] b;
+%%
+	int a;
+	int b;
+	/*
+	if($result->option != 0){
+		printf("last cycle's result is XXXXXXXX\n");
+	} else {
+		printf("last cycle's result: %d\n", $result->value);
+	}
+	printf("input : '%%d,%%d'\n");
+	scanf("%d, %d", &a, &b);
+	*/
+	$a->option = 0;
+	$b->option = 0;
+	$a->value = a;
+	$b->value = b;
+%%
+}
+	
+module dummymul{
+	input [u08] a;
+	input [u08] b;
+	output [u16] out;
+
+	contain add_c08 ad1;
+	contain add_c08 ad2;
+	contain add_c08 ad3;
+	contain add_c08 ad4;
+	contain add_c08 ad5;
+	contain add_c08 ad6;
+	contain add_c08 ad7;
+
+	contain shift sh1;
+	contain shift sh2;
+	contain shift sh3;
+	contain shift sh4;
+	contain shift sh5;
+	contain shift sh6;
+	contain shift sh7;
+	contain shift sh8;
+	
+	contain value_or_zero in1;
+	contain value_or_zero in2;
+	contain value_or_zero in3;
+	contain value_or_zero in4;
+	contain value_or_zero in5;
+	contain value_or_zero in6;
+	contain value_or_zero in7;
+	contain value_or_zero in8;
+
+	contain way_join_u08 join;
+
+	contain way_select_1_U08 sel1;
+	contain way_select_2_U08 sel2;
+	contain way_select_3_U08 sel3;
+	contain way_select_4_U08 sel4;
+	contain way_select_5_U08 sel5;
+	contain way_select_6_U08 sel6;
+	contain way_select_7_U08 sel7;
+	contain way_select_8_U08 sel8;
+	
+	contain low zero;
+	contain way_join_8_to_16 w8_16;
+
+	link sel1.i = b;
+	link sel2.i = b;
+	link sel3.i = b;
+	link sel4.i = b;
+	link sel5.i = b;
+	link sel6.i = b;
+	link sel7.i = b;
+	link sel8.i = b;
+
+	link in1.in=a;
+	link in2.in=a;
+	link in3.in=a;
+	link in4.in=a;
+	link in5.in=a;
+	link in6.in=a;
+	link in7.in=a;
+	link in8.in=a;
+	
+	link in1.set = sel1.o;
+	link in2.set = sel2.o;
+	link in3.set = sel3.o;
+	link in4.set = sel4.o;
+	link in5.set = sel5.o;
+	link in6.set = sel6.o;
+	link in7.set = sel7.o;
+	link in8.set = sel8.o;
+
+	
+	link sh1.in=in1.out;
+	link sh1.high = zero.o;
+	link ad1.a= sh1.out;
+	link ad1.b = in2.out;
+
+	link sh2.in = ad1.o;
+	link sh2.high = ad1.c;
+	link ad2.a = sh2.out;
+	link ad2.b = in3.out;
+
+	link sh3.in = ad2.o;
+	link sh3.high = ad2.c;
+	link ad3.a = sh3.out;
+	link ad3.b = in4.out;
+
+	link sh4.in = ad3.o;
+	link sh4.high = ad3.c;
+	link ad4.a = sh4.out;
+	link ad4.b = in5.out;
+
+	link sh5.in = ad4.o;
+	link sh5.high = ad4.c;
+	link ad5.a = sh5.out;
+	link ad5.b = in6.out;
+
+	link sh6.in = ad5.o;
+	link sh6.high = ad5.c;
+	link ad6.a = sh6.out;
+	link ad6.b = in7.out;
+
+	link sh7.in = ad6.o;
+	link sh7.high = ad6.c;
+	link ad7.a = sh7.out;
+	link ad7.b = in8.out;
+	
+	link sh8.in = ad7.o;
+	link sh8.high = ad7.c;
+
+	link join.w1 = sh1.low;
+
+	link join.w2 = sh2.low;
+	link join.w3 = sh3.low;
+	link join.w4 = sh4.low;
+	link join.w5 = sh5.low;
+	link join.w6 = sh6.low;
+	link join.w7 = sh7.low;
+	link join.w8 = sh8.low;
+	
+	link w8_16.low = join.out;
+	link w8_16.high = sh8.out;
+	link out = w8_16.out;
+}
+

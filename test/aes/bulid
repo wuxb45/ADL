@@ -1,0 +1,4 @@
+#!/bin/sh
+
+adlforsim -m god -r17 aes.adl
+gcc -g -o god aes.adl.sim.c -lsim

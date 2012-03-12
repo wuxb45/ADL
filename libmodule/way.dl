@@ -1,0 +1,79 @@
+module way_select_high_U32(0){
+	input [u32] i;
+	output [W01] o;
+%%
+	op_check_x1($o, $i);
+	$o->value = ($i->value &0x80000000) ? 0xffffffff : 0x0;
+%%
+}
+
+module way_select_high_U16(0){
+	input [u16] i;
+	output [W01] o;
+%%
+	op_check_x1($o, $i);
+	$o->value = ($i->value &0x8000) ? 0xffffffff : 0x0;
+%%
+}
+
+module way_select_high_U08(0){
+	input [u08] i;
+	output [W01] o;
+%%
+	op_check_x1($o, $i);
+	$o->value = ($i->value &0x80) ? 0xffffffff : 0x0;
+%%
+}
+
+
+module way_select_low_U32(0){
+	input [u32] i;
+	output [W01] o;
+%%
+	op_check_x1($o, $i);
+	$o->value = ($i->value &0x1) ? 0xffffffff : 0x0;
+%%
+}
+
+module way_select_low_U16(0){
+	input [u16] i;
+	output [W01] o;
+%%
+	op_check_x1($o, $i);
+	$o->value = ($i->value &0x1) ? 0xffffffff : 0x0;
+%%
+}
+
+module way_select_low_U08(0){
+	input [u08] i;
+	output [W01] o;
+%%
+	op_check_x1($o, $i);
+	$o->value = ($i->value &0x1) ? 0xffffffff : 0x0;
+%%
+}
+
+module way_join_u08(0){
+	input [W01] w0;
+	input [W01] w1;
+	input [W01] w2;
+	input [W01] w3;
+	input [W01] w4;
+	input [W01] w5;
+	input [W01] w6;
+	input [W01] w7;
+	output [u08] out;
+%%
+	if($w0->option | $w1->option | 
+			$w2->option | $w3->option | 
+			$w4->option | $w5->option | 
+			$w6->option | $w7->option){
+		$out->option = SIM_OPTION_X;
+	} else {
+		$out->option = 0;
+		$out->value = (w0 & 0x1) | (w1 & 0x2) | (w2 & 0x4) | (w3 & 0x8) |
+				(w4 & 0x10) | (w5 & 0x20) | (w6 & 0x40) | (w7 & 0x80);
+	}
+}
+
+

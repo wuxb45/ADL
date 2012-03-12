@@ -1,0 +1,165 @@
+@sb_table.adl
+
+module Keys(1) {
+	input [U08] round;
+	input [U08][4][4] i;
+
+	output [U08][4][4] o;
+	
+	ram [U08][4][4] key;
+	
+	%%
+	unsigned char rc;
+	unsigned char t0, t1, t2, t3;
+
+	switch($round.value){
+	case 1: rc = 0x01; break;
+	case 2: rc = 0x02; break;
+	case 3: rc = 0x04; break;
+	case 4: rc = 0x08; break;
+	case 5: rc = 0x10; break;
+	case 6: rc = 0x20; break;
+	case 7: rc = 0x40; break;
+	case 8: rc = 0x80; break;
+	case 9: rc = 0x1b; break;
+	case 10: rc = 0x36; break;
+	default: rc = 0x0; break;
+	}
+
+	if($round.value == 0){
+		$key[0][0].value = $i[0][0].value;
+		$key[0][1].value = $i[0][1].value;
+		$key[0][2].value = $i[0][2].value;
+		$key[0][3].value = $i[0][3].value;
+
+		$key[1][0].value = $i[1][0].value;
+		$key[1][1].value = $i[1][1].value;
+		$key[1][2].value = $i[1][2].value;
+		$key[1][3].value = $i[1][3].value;
+
+		$key[2][0].value = $i[2][0].value;
+		$key[2][1].value = $i[2][1].value;
+		$key[2][2].value = $i[2][2].value;
+		$key[2][3].value = $i[2][3].value;
+
+		$key[3][0].value = $i[3][0].value;
+		$key[3][1].value = $i[3][1].value;
+		$key[3][2].value = $i[3][2].value;
+		$key[3][3].value = $i[3][3].value;
+
+		}else{
+		// w0
+		//rotate
+		t0 = $key[3][1].value;
+		t1 = $key[3][2].value;
+		t2 = $key[3][3].value;
+		t3 = $key[3][0].value;
+		
+		// subbyte
+		t0 = table_subbytes[t0];
+		t1 = table_subbytes[t1];
+		t2 = table_subbytes[t2];
+		t3 = table_subbytes[t3];
+		
+		// XOR Round const
+		t0 ^= rc;
+
+		// get key w0
+		$key[0][0].value = t0 ^ $key[0][0].value;
+		$key[0][1].value = t1 ^ $key[0][1].value;
+		$key[0][2].value = t2 ^ $key[0][2].value;
+		$key[0][3].value = t3 ^ $key[0][3].value;
+
+		//w1
+		$key[1][0].value ^= $key[0][0].value;
+		$key[1][1].value ^= $key[0][1].value;
+		$key[1][2].value ^= $key[0][2].value;
+		$key[1][3].value ^= $key[0][3].value;
+
+		//w2
+		$key[2][0].value ^= $key[1][0].value;
+		$key[2][1].value ^= $key[1][1].value;
+		$key[2][2].value ^= $key[1][2].value;
+		$key[2][3].value ^= $key[1][3].value;
+
+		//w3
+		$key[3][0].value ^= $key[2][0].value;
+		$key[3][1].value ^= $key[2][1].value;
+		$key[3][2].value ^= $key[2][2].value;
+		$key[3][3].value ^= $key[2][3].value;
+	}
+
+	$o[0][0].value = $key[0][0].value;
+	$o[0][1].value = $key[0][1].value;
+	$o[0][2].value = $key[0][2].value;
+	$o[0][3].value = $key[0][3].value;
+
+	$o[1][0].value = $key[1][0].value;
+	$o[1][1].value = $key[1][1].value;
+	$o[1][2].value = $key[1][2].value;
+	$o[1][3].value = $key[1][3].value;
+
+	$o[2][0].value = $key[2][0].value;
+	$o[2][1].value = $key[2][1].value;
+	$o[2][2].value = $key[2][2].value;
+	$o[2][3].value = $key[2][3].value;
+
+	$o[3][0].value = $key[3][0].value;
+	$o[3][1].value = $key[3][1].value;
+	$o[3][2].value = $key[3][2].value;
+	$o[3][3].value = $key[3][3].value;
+
+	%%
+}
+
+module Keys_test(1){
+	
+	input [U08][4][4] i;
+
+	output [U08][4][4] o;
+	output [U08] round;
+%%
+	static int round = 0;
+
+	if(round == 0){
+		$o[0][0].value = 0x2b;
+		$o[0][1].value = 0x7e;
+		$o[0][2].value = 0x15;
+		$o[0][3].value = 0x16;
+
+		$o[1][0].value = 0x28;
+		$o[1][1].value = 0xae;
+		$o[1][2].value = 0xd2;
+		$o[1][3].value = 0xa6;
+
+		$o[2][0].value = 0xab;
+		$o[2][1].value = 0xf7;
+		$o[2][2].value = 0x15;
+		$o[2][3].value = 0x88;
+
+		$o[3][0].value = 0x09;
+		$o[3][1].value = 0xcf;
+		$o[3][2].value = 0x4f;
+		$o[3][3].value = 0x3c;
+	}
+
+	printf("get:\n");
+	printf("%02x %02x %02x %02x\n", $i[0][0].value,$i[1][0].value,$i[2][0].value,$i[3][0].value);
+	printf("%02x %02x %02x %02x\n", $i[0][1].value,$i[1][1].value,$i[2][1].value,$i[3][1].value);
+	printf("%02x %02x %02x %02x\n", $i[0][2].value,$i[1][2].value,$i[2][2].value,$i[3][2].value);
+	printf("%02x %02x %02x %02x\n", $i[0][3].value,$i[1][3].value,$i[2][3].value,$i[3][3].value);
+
+
+	$round.value = round;
+	round++;
+%%
+}
+
+module Keys_top{
+	contain Keys k;
+	contain Keys_test t;
+
+	net k.round , t.round;
+	net k.i , t.o;
+	net t.i , k.o;
+}
