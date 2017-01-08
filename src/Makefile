@@ -15,7 +15,7 @@ YACC = bison
 FLEXOPTION = --yylineno
 BISONOPTION = --debug --verbose
 
-OBJECTS = main.o stage.o util.o lex.yy.o front.tab.o parse.o config.o pre.o common.o line.o module.o global.o code.o bus.o
+OBJECTS = main.o stage.o util.o lex.yy.o front.tab.o parse.o config.o pre.o common.o line.o module.o global.o code.o
 #OBJECTS = main.o stage.o util.o lex.yy.o front.tab.o parse.o common.o module.o global.o code.o graph.o config.o verilog.o pre.o
 LIBS = -lfl
 TARGET = adlforsim
@@ -31,7 +31,7 @@ $(TARGET) : $(OBJECTS)
 .c.o:
 	$(CC) $(MYOPTION) -c $<
 
-include makefile.config
+include Makefile.config
 
 lex.yy.c : front.l front.tab.h
 	$(LEX) $(FLEXOPTION) front.l

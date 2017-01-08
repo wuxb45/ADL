@@ -189,7 +189,7 @@ stage_3(void)
 	SIM_MODULE_LIST * module_list = NULL;
 	SIM_MODULE_TREE * entity_tree = NULL;
 	SIM_LINK_LIST * link_list = NULL;
-	SIM_BUS_LIST * bus_list = NULL;
+	//SIM_BUS_LIST * bus_list = NULL;
 
 	module_list = parse_get_module_list();
 	if(common_get_error_count()){
@@ -206,10 +206,10 @@ stage_3(void)
 		return -1;
 	}
 
-	bus_list = bus_do(entity_tree);
-	if(common_get_error_count()){
-		return -1;
-	}
+	//bus_list = bus_do(entity_tree);
+	//if(common_get_error_count()){
+	//	return -1;
+	//}
 
 
 

@@ -669,8 +669,8 @@ global_recursive_check_coverage(SIM_MODULE_TREE * node, SIM_LINK_LIST * link_lis
 {
 	SIM_MODULE * module;
 	SIM_MODULE_TREE * temp;
-	char * entity_name;
-	char * port_name;
+	//char * entity_name;
+	//char * port_name;
 	SIM_ELEMENT_LIST * elist;
 	SIM_ELEMENT * element;
 
@@ -678,7 +678,7 @@ global_recursive_check_coverage(SIM_MODULE_TREE * node, SIM_LINK_LIST * link_lis
 	for(temp = node; temp; temp = temp->brother){
 
 		module = temp->module;
-		entity_name = temp->name;
+		//entity_name = temp->name;
 
 		if(module->behavior == 0){
 			if(temp->child){
@@ -689,7 +689,7 @@ global_recursive_check_coverage(SIM_MODULE_TREE * node, SIM_LINK_LIST * link_lis
 
 		for(elist = module->element_list; elist; elist = elist->next){
 			element = elist->element;
-			port_name = element->name;
+			//port_name = element->name;
 
 			switch(element->type){
 			case ELEMENT_CONTAIN:
